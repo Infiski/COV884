@@ -1,0 +1,6 @@
+transformers
+langchain
+networkx
+tqdm
+requests
+python-dotenv
