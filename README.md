@@ -1,73 +1,56 @@
 # COV884
 
-# Knowledge Graph-Based QA Generation and Fine-Tuning Pipeline
+# Knowledge Graph QA Pipeline
 
-This repository contains a Python notebook that implements a complete pipeline for building a question-answering system using Knowledge Graphs (KGs). The pipeline includes entity extraction, triplet extraction, knowledge graph construction, path sampling, and fine-tuning a language model with generated QA pairs.
+## Overview
 
-## 📌 Features
+This Jupyter Notebook implements a complete pipeline for Knowledge Graph-based Question Answering:
 
-- **Entity & Triplet Extraction** using LLM prompts (NER and OpenIE-style)
-- **Knowledge Graph Construction** with metadata
-- **Path Sampling** for multi-hop reasoning
-- **Question-Answer Generation** using structured facts
-- **LoRA-based Fine-Tuning** of LLaMA/Mistral models on QA data
+1. **Extract Entities and Triplets**: Use custom processing tools to extract key entities and relations from raw text.
+2. **Knowledge Graph Creation**: Build a directed graph using NetworkX with extracted triplets.
+3. **Q/A Generation via KG**: Generate question-answer pairs using a HuggingFace model wrapper and LangChain prompts.
+4. **Path Sampling**: Sample semantically coherent reasoning paths from the knowledge graph.
+5. **Fine-Tuning**: Fine-tune a downstream model on the generated Q/A pairs using LoRA or other methods.
 
-## 🧱 Pipeline Structure
+## Prerequisites
 
-1. **Entity Extraction**  
-   Uses prompt-engineered LLM calls to extract named entities from unstructured text.
+- Python 3.8 or higher
+- A Hugging Face API token (`HF_API_KEY`) stored in a `.env` file.
+- A local module `processing.py` with data processing utilities.
 
-2. **Triplet Extraction**  
-   Extracts subject-relation-object triples (facts) from text using an OpenIE-style prompt.
+## Installation
 
-3. **KG Construction**  
-   Constructs a `networkx` graph using the extracted facts and maps entities to passages.
-
-4. **Path Sampling**  
-   Performs meaningful multi-hop path sampling with constraints on passage overlap and length.
-
-5. **QA Pair Generation**  
-   Generates high-quality QA pairs (with CoT explanations and paraphrases) from sampled paths.
-
-6. **Model Fine-Tuning**  
-   Fine-tunes a transformer-based LLM using LoRA on the generated QA pairs.
-
-## 🧰 Requirements
-
-- Python 3.8+
-- `transformers`, `langchain`, `networkx`, `tqdm`, `requests`, `python-dotenv`
-- Hugging Face API token in a `.env` file:
-  ```env
-  HF_API_KEY=your_huggingface_api_key
-  ```
-
-## 🚀 Usage
-
-1. Clone the repo and set up the environment:
+1. Clone the repository or download the notebook and supporting files.
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows: venv\Scripts\activate
+   ```
+3. Install the required Python packages:
    ```bash
    pip install -r requirements.txt
    ```
+4. Create a `.env` file in the project root with your Hugging Face API key:
+   ```
+   HF_API_KEY=your_huggingface_api_token_here
+   ```
 
-2. Prepare your input paragraphs and ensure `.env` is configured.
+## Usage
 
-3. Run the notebook step-by-step or export the code to `.py` for modular execution.
+1. Launch Jupyter Notebook or JupyterLab:
+   ```bash
+   jupyter notebook Untitled-1.ipynb
+   ```
+2. Execute the cells in order. Adjust parameters such as `model_id`, `temperature`, or dataset paths as needed.
+3. Inspect outputs at each pipeline stage and customize for your own data.
 
-4. The final QA dataset will be saved as JSONL and used to fine-tune your model.
+## File Structure
 
-## 📂 File Structure
+- `Untitled-1.ipynb` – The main notebook containing the pipeline.
+- `processing.py` – Helper functions for entity extraction and triplet generation.
+- `requirements.txt` – List of Python dependencies.
+- `.env` – Environment variables (not included in version control).
 
-```
-.
-├── Untitled-1.ipynb        # Main notebook with all scripts
-├── .env                    # HuggingFace API key
-├── data/                   # Input and generated data (facts, passages, questions)
-├── models/                 # Fine-tuned models (optional)
-└── README.md               # This file
-```
+## License
 
-## 📈 Output
-
-- `facts.json`: Structured knowledge triples
-- `qa_pairs.jsonl`: Generated QA pairs with explanations
-- `fine_tuned_model/`: Saved model checkpoints
-
+This project is released under the MIT License.
