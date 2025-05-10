@@ -39,7 +39,7 @@ pip install -r requirements.txt
 
 3. **Evaluate Model**  
    ```bash
-   python evaluate.py --model_checkpoint model_checkpoint/ --test_data generated_qa.json --output formatted_output.json_scores.json
+   python evaluate.py --model_checkpoint model_checkpoint/ --test_data generated_qa.json --output output.json
    ```
 
 Adjust script arguments as needed (e.g., file paths, hyperparameters).
