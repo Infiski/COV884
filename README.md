@@ -51,6 +51,4 @@ This Jupyter Notebook implements a complete pipeline for Knowledge Graph-based Q
 - `requirements.txt` – List of Python dependencies.
 - `.env` – Environment variables (not included in version control).
 
-## License
 
-This project is released under the MIT License.
